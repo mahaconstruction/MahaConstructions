@@ -1,0 +1,26 @@
+.git
+.github
+.env
+.env.*
+!.env.example
+!.env.production.example
+private key*
+*deploy-key*
+vendor
+node_modules
+tests
+phpunit.xml
+.phpunit.result.cache
+.phpunit.cache
+storage/logs/*
+!storage/logs/.gitignore
+storage/framework/cache/*
+!storage/framework/cache/.gitignore
+storage/framework/sessions/*
+!storage/framework/sessions/.gitignore
+storage/framework/views/*
+!storage/framework/views/.gitignore
+bootstrap/cache/*.php
+database/database.sqlite
+database/database.sqlite-journal
+*.log

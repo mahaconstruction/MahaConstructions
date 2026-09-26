@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>@yield('title', 'Maha Constructions | Premium Luxury Architectural Masterpieces')</title>
+    <meta name="description" content="@yield('description', 'Maha Construction is Tamil Nadu\'s premier government-registered engineering firm delivering custom luxury villas, residential residences, and architectural homes.')"/>
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v={{ file_exists(public_path('css/app.css')) ? filemtime(public_path('css/app.css')) : time() }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="{{ asset('js/resilient-net.js') }}?v={{ file_exists(public_path('js/resilient-net.js')) ? filemtime(public_path('js/resilient-net.js')) : time() }}"></script>
+    @stack('styles')
+</head>
+<body class="dark-theme {{ request()->routeIs('interior') ? 'interior-body' : '' }}">
+
+    <!-- Main Navigation Bar -->
+    <nav class="navbar {{ request()->routeIs('interior') ? 'interior-navbar' : '' }}" id="navbar">
+        <div class="container nav-container">
+            @if(request()->routeIs('interior'))
+            <!-- INTERIOR LOGO & BRAND (ARCHITECTURAL LUXURY) -->
+            <a href="{{ route('interior') }}" class="nav-logo interior-nav-logo" style="display:inline-flex;align-items:center;gap:14px;text-decoration:none;">
+                <div class="interior-logo-badge">
+                    <picture>
+                        <source srcset="{{ asset('logo.webp') }}" type="image/webp">
+                        <img src="{{ asset('logo.jpg') }}"
+                             alt="Maha Interior Logo"
+                             width="44" height="44"
+                             loading="eager"
+                             fetchpriority="high"
+                             decoding="async"
+                             onerror="this.onerror=null;this.src='{{ asset('images/placeholder-project.svg') }}';"
+                             class="interior-logo-img">
+                    </picture>
+                </div>
+                <div class="interior-logo-text">
+                    <div class="interior-brand-title">
+                        <span class="brand-maha">MAHA</span>
+                        <span class="brand-interiors">INTERIORS</span>
+                    </div>
+                    <span class="interior-brand-tagline">YOUR DREAM. OUR DESIGN.</span>
+                </div>
+            </a>
+
+            <div class="nav-menu interior-nav-menu" id="navMenu">
+                <a href="#interior-intro" class="nav-item interior-nav-item">HOME</a>
+                <a href="#interior-projects" class="nav-item interior-nav-item">PROJECTS</a>
+                <a href="#interior-testimonials" class="nav-item interior-nav-item">TESTIMONIALS</a>
+                <a href="#interior-packages" class="nav-item interior-nav-item">PACKAGES</a>
+                <a href="#interior-enquiry" class="nav-item interior-nav-item">CONTACT</a>
+                <a href="{{ route('home') }}" class="nav-item interior-nav-item mobile-only-link" style="color:#C8952B!important;font-weight:800;border-top:1px solid rgba(200,149,43,0.25);margin-top:6px;padding-top:10px;">
+                    <i class="fas fa-building" style="margin-right:6px;"></i> VISIT CONSTRUCTION
+                </a>
+            </div>
+
+            <div class="nav-actions interior-nav-actions">
+                <button class="nav-search-btn" id="searchToggleBtn" title="Search">
+                    <i class="fas fa-search" style="font-size:16px;"></i>
+                </button>
+                <button class="nav-mobile-toggle" id="navMobileToggle" aria-label="Toggle Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+            @else
+            <!-- CONSTRUCTION LOGO & BRAND -->
+            <a href="{{ route('home') }}" class="nav-logo" style="display:inline-flex;align-items:center;gap:16px;text-decoration:none;">
+                <div style="background:#FFFFFF;padding:6px 14px;border-radius:14px;border:2px solid #D4AF37;box-shadow:0 4px 22px rgba(0,0,0,0.5),0 0 25px rgba(212,175,55,0.45);display:flex;align-items:center;justify-content:center;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);" onmouseover="this.style.boxShadow='0 6px 28px rgba(212,175,55,0.7),0 0 30px rgba(212,175,55,0.6)';this.style.transform='scale(1.04)';" onmouseout="this.style.boxShadow='0 4px 22px rgba(0,0,0,0.5),0 0 25px rgba(212,175,55,0.45)';this.style.transform='scale(1)';">
+                    <picture>
+                        <source srcset="{{ asset('logo.webp') }}" type="image/webp">
+                        <img src="{{ asset('logo.jpg') }}"
+                             alt="Maha Constructions Logo"
+                             width="54" height="54"
+                             loading="eager"
+                             fetchpriority="high"
+                             decoding="async"
+                             onerror="this.onerror=null;this.src='{{ asset('images/placeholder-project.svg') }}';"
+                             style="height:54px;width:auto;object-fit:contain;display:block;">
+                    </picture>
+                </div>
+                <div style="display:flex;flex-direction:column;justify-content:center;">
+                    <span style="font-size:1.35rem;font-weight:900;letter-spacing:0.07em;line-height:1.15;font-family:var(--font-heading);background:linear-gradient(135deg,#FFFFFF 15%,#FFFDF0 45%,#FFD700 80%,#D4AF37 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 8px rgba(212,175,55,0.35));">MAHA CONSTRUCTIONS</span>
+                    <span style="font-size:0.68rem;font-weight:800;letter-spacing:0.24em;color:#D4AF37;text-transform:uppercase;margin-top:4px;font-family:var(--font-heading);text-shadow:0 0 10px rgba(212,175,55,0.4);">WE BUILD YOUR DREAM HOME</span>
+                </div>
+            </a>
+
+            <div class="nav-menu" id="navMenu">
+                <a href="{{ route('home') }}" class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">HOME</a>
+                <a href="{{ route('pricing') }}" class="nav-item {{ request()->routeIs('pricing') ? 'active' : '' }}">PACKAGES</a>
+                <a href="{{ route('projects') }}" class="nav-item {{ request()->routeIs('projects') ? 'active' : '' }}">PROJECTS</a>
+                <a href="{{ route('interior') }}" class="nav-item mobile-only-link" style="color:#FFD700!important;font-weight:800;border-top:1px solid rgba(212,175,55,0.25);margin-top:6px;padding-top:10px;">
+                    <i class="fas fa-couch" style="margin-right:6px;"></i> EXPLORE MAHA INTERIORS
+                </a>
+            </div>
+
+            <div class="nav-actions">
+                <button class="nav-search-btn" id="searchToggleBtn" title="Search">
+                    <i class="fas fa-search" style="font-size:16px;"></i>
+                </button>
+                <button class="nav-mobile-toggle" id="navMobileToggle" aria-label="Toggle Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+            @endif
+        </div>
+    </nav>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-box-container">
+            <input type="text" placeholder="Search projects, packages, services..." id="searchInput">
+            <button class="search-close-btn" id="searchCloseBtn">✕</button>
+        </div>
+    </div>
+
+    @if(!request()->routeIs('interior'))
+    <!-- Fixed Floating Right Action Bar -->
+    <div class="floating-actions-bar">
+        <button class="float-btn chat-btn" data-open-quote title="Chat with Us">
+            <i class="fas fa-comments" style="font-size:18px;"></i>
+        </button>
+        <a href="https://wa.me/{{ $raw_whatsapp }}?text=Hello%20Er.%20Maha%20Rajan%2C%20I%20want%20to%20consult%20for%20my%20Dream%20home." target="_blank" class="float-btn whatsapp-btn" title="WhatsApp Direct">
+            <i class="fab fa-whatsapp" style="font-size:22px;"></i>
+        </a>
+        <a href="tel:+{{ $raw_phone }}" class="float-btn phone-btn" title="Call Us">
+            <i class="fas fa-phone" style="font-size:18px;"></i>
+        </a>
+        <button class="float-btn back-top-btn" id="backToTopBtn" title="Back to Top">
+            <i class="fas fa-chevron-up" style="font-size:16px;"></i>
+        </button>
+    </div>
+    @endif
+
+    <!-- Main Page Content -->
+    <main>
+        @yield('content')
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer {{ request()->routeIs('interior') ? 'interior-footer' : '' }}">
+        <div class="container footer-container">
+            @if(request()->routeIs('interior'))
+            <!-- INTERIOR FOOTER CONTENT (ARCHITECTURAL EDITORIAL) -->
+            <div class="footer-top-grid interior-footer-grid">
+                <div class="footer-brand-col interior-footer-brand">
+                    <div class="footer-logo">
+                        <div class="logo-badge interior-footer-badge">
+                            <picture>
+                                <source srcset="{{ asset('logo.webp') }}" type="image/webp">
+                                <img src="{{ asset('logo.jpg') }}" alt="Maha Interior Logo" width="36" height="36" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='{{ asset('images/placeholder-project.svg') }}';" class="interior-footer-logo-img">
+                            </picture>
+                        </div>
+                        <div class="logo-text-group">
+                            <span class="logo-brand interior-footer-brand-name">MAHA INTERIORS</span>
+                            <span class="logo-tagline interior-footer-tagline">YOUR DREAM. OUR DESIGN.</span>
+                        </div>
+                    </div>
+                    <p class="footer-desc interior-footer-desc">
+                        Tamil Nadu's premier interior architecture and execution studio. Delivering bespoke modular kitchens, luxury wardrobes, acoustic living spaces, and turnkey interior fitouts with civil engineering precision.
+                    </p>
+                    <div class="footer-social-row interior-footer-social">
+                        <a href="https://www.instagram.com/mahaconstructions_2013" target="_blank" class="social-icon-btn" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/mahaconstructions" target="_blank" class="social-icon-btn" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="{{ $yt_channel_url }}" target="_blank" class="social-icon-btn" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links-col">
+                    <h4 class="footer-heading interior-footer-heading">ON-PAGE SECTIONS</h4>
+                    <ul class="footer-nav interior-footer-nav">
+                        <li><a href="#interior-intro">00 • Studio Hero</a></li>
+                        <li><a href="#interior-projects">01 • Portfolio Showcase</a></li>
+                        <li><a href="#interior-testimonials">02 • Client Stories</a></li>
+                        <li><a href="#interior-engineer">03 • Engineered Interiors</a></li>
+                        <li><a href="#interior-packages">04 • Interiors Packages</a></li>
+                        <li><a href="#interior-enquiry">05 • Book Consultation</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links-col">
+                    <h4 class="footer-heading interior-footer-heading">DESIGN CAPABILITIES</h4>
+                    <ul class="footer-nav interior-footer-nav">
+                        <li>Interiors Design & Planning</li>
+                        <li>Turnkey Interiors Execution</li>
+                        <li>Modular Kitchen Solutions</li>
+                        <li>Wardrobe & Storage Systems</li>
+                        <li>Living Room Interiors</li>
+                        <li>Bedroom Suites</li>
+                        <li>Gypsum False Ceiling</li>
+                        <li>Architectural Lighting</li>
+                        <li>Renovation & Remodeling</li>
+                    </ul>
+                    <p class="interior-footer-note">Factory-finished precision joinery with 10-year hardware warranty.</p>
+                </div>
+
+                <div class="footer-contact-col">
+                    <h4 class="footer-heading interior-footer-heading">STUDIO CONTACT</h4>
+                    <div class="footer-contact-item interior-contact-item">
+                        <span class="contact-label">Telephone:</span>
+                        <span><a href="tel:+{{ $raw_phone }}">{{ $company_phone }}</a> @if(!empty($company_phone_sec)) / <a href="tel:+{{ preg_replace('/[^0-9]/', '', $company_phone_sec) }}">{{ $company_phone_sec }}</a> @endif</span>
+                    </div>
+                    <div class="footer-contact-item interior-contact-item">
+                        <span class="contact-label">Email:</span>
+                        <span><a href="mailto:{{ $company_email }}">{{ $company_email }}</a></span>
+                    </div>
+                    <div class="footer-contact-item interior-contact-item">
+                        <span class="contact-label">Showcase:</span>
+                        <span>www.mahaconstructions.in/interior</span>
+                    </div>
+                    <div class="footer-contact-item interior-contact-item">
+                        <span class="contact-label">Studio Address:</span>
+                        <span>{{ $company_address }}</span>
+                    </div>
+                    <div style="margin-top:18px;">
+                        <a href="{{ route('home') }}" class="division-switch-btn" title="Switch to Construction Website" style="display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg, rgba(212,175,55,0.2) 0%, rgba(212,175,55,0.08) 100%);color:#FFD700;border:1.5px solid #D4AF37;padding:8px 18px;border-radius:20px;font-size:0.75rem;font-weight:800;letter-spacing:0.08em;text-decoration:none;transition:all 0.3s ease;text-transform:uppercase;font-family:var(--font-heading);box-shadow:0 0 14px rgba(212,175,55,0.3);" onmouseover="this.style.background='#D4AF37';this.style.color='#050B14';this.style.boxShadow='0 0 20px rgba(212,175,55,0.6)';" onmouseout="this.style.background='linear-gradient(135deg, rgba(212,175,55,0.2) 0%, rgba(212,175,55,0.08) 100%)';this.style.color='#FFD700';this.style.boxShadow='0 0 14px rgba(212,175,55,0.3)';">
+                            <i class="fas fa-building" style="font-size:0.75rem;"></i> CONSTRUCTION
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-location-strip interior-location-strip">
+                <span><i class="fas fa-map-marker-alt" style="margin-right:8px;color:var(--gold);"></i> <strong>Studio Location:</strong> Nagercoil, Kanyakumari, Tamil Nadu</span>
+                <a href="https://maps.google.com" target="_blank" class="map-link">VIEW ON GOOGLE MAPS <i class="fas fa-arrow-right" style="margin-left:6px;"></i></a>
+            </div>
+
+            <div class="footer-bottom-bar interior-bottom-bar" style="justify-content:center;text-align:center;">
+                <p>© {{ date('Y') }} MAHA GROUPS. All rights reserved.</p>
+            </div>
+            @else
+            <!-- CONSTRUCTION FOOTER CONTENT -->
+            <div class="footer-top-grid">
+                <div class="footer-brand-col">
+                    <div class="footer-logo">
+                        <div class="logo-badge" style="background:#FFFFFF;padding:4px 10px;border-radius:10px;border:1.5px solid #D4AF37;box-shadow:0 4px 14px rgba(0,0,0,0.4),0 0 12px rgba(212,175,55,0.25);">
+                            <picture>
+                                <source srcset="{{ asset('logo.webp') }}" type="image/webp">
+                                <img src="{{ asset('logo.jpg') }}" alt="Maha Constructions Logo" width="36" height="36" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='{{ asset('images/placeholder-project.svg') }}';" style="height:36px;width:auto;object-fit:contain;display:block;">
+                            </picture>
+                        </div>
+                        <div class="logo-text-group">
+                            <span class="logo-brand">MAHA CONSTRUCTIONS</span>
+                            <span class="logo-tagline">YOUR DREAM. WE BUILD.</span>
+                        </div>
+                    </div>
+                    <p class="footer-desc">
+                        Building luxury homes with quality, itemized transparency, and structural trust. Er. Maha Rajan (Government Registered Engineer) leading 12+ years of structural engineering excellence across Tamil Nadu.
+                    </p>
+                    <div class="footer-social-row">
+                        <a href="https://www.instagram.com/mahaconstructions_2013" target="_blank" class="social-icon-btn" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/mahaconstructions" target="_blank" class="social-icon-btn" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="{{ $yt_channel_url }}" target="_blank" class="social-icon-btn" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links-col">
+                    <h4 class="footer-heading">QUICK LINKS</h4>
+                    <ul class="footer-nav">
+                        <li><a href="{{ route('home') }}">Home</a></li>
+                        <li><a href="{{ route('pricing') }}">Packages</a></li>
+                        <li><a href="{{ route('projects') }}">Projects</a></li>
+                        <li><a href="{{ route('testimonials') }}">Client Testimonials</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links-col">
+                    <h4 class="footer-heading">OUR SERVICES</h4>
+                    <ul class="footer-nav">
+                        <li>Individual Villa & Apartment Constructions</li>
+                        <li>Commercial Constructions</li>
+                        <li>Architectural Design</li>
+                        <li>Interiors Design & Execution</li>
+                        <li>Renovation & Remodeling</li>
+                        <li>Vastu Consultation</li>
+                        <li>Building Plan Approval</li>
+                        <li>Home Loan Assistance</li>
+                        <li>Turnkey Construction</li>
+                    </ul>
+                    <p style="font-size:0.78rem;color:var(--text-muted);margin-top:14px;line-height:1.45;font-family:var(--font-body);">Complete Project Solutions — From Concept to Handover</p>
+                </div>
+
+                <div class="footer-contact-col">
+                    <h4 class="footer-heading">CONTACT US</h4>
+                    <div class="footer-contact-item">
+                        <span class="contact-label">Office:</span>
+                        <span><a href="tel:+{{ $raw_phone }}" style="color:inherit;text-decoration:none;">{{ $company_phone }}</a> @if(!empty($company_phone_sec)) / Engr: <a href="tel:+{{ preg_replace('/[^0-9]/', '', $company_phone_sec) }}" style="color:inherit;text-decoration:none;">{{ $company_phone_sec }}</a> @endif</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <span class="contact-label">Email:</span>
+                        <span><a href="mailto:{{ $company_email }}" style="color:inherit;">{{ $company_email }}</a></span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <span class="contact-label">Web:</span>
+                        <span>www.maha-constructions.com</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <span class="contact-label">Address:</span>
+                        <span>{{ $company_address }}</span>
+                    </div>
+                    <div style="margin-top:18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                        <a href="{{ route('interior') }}" class="division-switch-btn" title="Explore Maha Interiors Showcase" style="display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg, rgba(212,175,55,0.2) 0%, rgba(212,175,55,0.08) 100%);color:#FFD700;border:1.5px solid #D4AF37;padding:8px 18px;border-radius:20px;font-size:0.75rem;font-weight:800;letter-spacing:0.08em;text-decoration:none;transition:all 0.3s ease;text-transform:uppercase;font-family:var(--font-heading);box-shadow:0 0 14px rgba(212,175,55,0.3);" onmouseover="this.style.background='#D4AF37';this.style.color='#050B14';this.style.boxShadow='0 0 20px rgba(212,175,55,0.6)';" onmouseout="this.style.background='linear-gradient(135deg, rgba(212,175,55,0.2) 0%, rgba(212,175,55,0.08) 100%)';this.style.color='#FFD700';this.style.boxShadow='0 0 14px rgba(212,175,55,0.3)';">
+                            <i class="fas fa-couch" style="font-size:0.75rem;"></i> INTERIORS
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-location-strip">
+                <span><i class="fas fa-map-marker-alt" style="margin-right:6px;color:var(--gold);"></i> <strong>Office Location:</strong> Nagercoil, Kanyakumari, Tamil Nadu</span>
+                <a href="https://maps.google.com" target="_blank" class="map-link">VIEW ON GOOGLE MAPS <i class="fas fa-arrow-right" style="margin-left:6px;"></i></a>
+            </div>
+
+            <div class="footer-bottom-bar" style="justify-content:center;text-align:center;">
+                <p>© {{ date('Y') }} MAHA GROUPS. All rights reserved.</p>
+            </div>
+            @endif
+        </div>
+    </footer>
+
+    <!-- Video Popup Modal Player (HireAndBuild Interactive Story Model) -->
+    <div class="modal-backdrop" id="videoModal">
+        <div class="video-modal-content" style="max-width:880px;background:#050B14;border:1.5px solid #D4AF37;border-radius:24px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,0.8),0 0 30px rgba(212,175,55,0.2);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid rgba(212,175,55,0.25);">
+                <div style="display:flex;align-items:center;gap:10px;">
+                    <span style="width:8px;height:8px;background:#25D366;border-radius:50%;display:inline-block;box-shadow:0 0 8px #25D366;"></span>
+                    <span id="modalVideoTitle" style="font-size:0.95rem;font-weight:800;color:#FFFFFF;letter-spacing:0.04em;">MAHA CONSTRUCTIONS STORY</span>
+                </div>
+                <button class="modal-close-icon" id="closeVideoModal" style="position:static;font-size:1.1rem;color:#D4AF37;background:rgba(212,175,55,0.1);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid rgba(212,175,55,0.3);"><i class="fas fa-xmark"></i></button>
+            </div>
+
+            <div class="video-container" style="background:#000;border-radius:14px;overflow:hidden;">
+                <video id="modalVideoPlayer" controls autoplay playsinline style="width:100%;max-height:68vh;border-radius:14px;display:block;"></video>
+                <iframe id="modalYoutubePlayer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%;height:68vh;border-radius:14px;display:none;"></iframe>
+            </div>
+
+            <!-- In-Modal Story Switcher Controls -->
+            <div id="modalStorySwitcher" style="display:none;justify-content:space-between;align-items:center;margin-top:16px;padding-top:14px;border-top:1px solid rgba(212,175,55,0.2);">
+                <button id="modalPrevStoryBtn" style="display:inline-flex;align-items:center;gap:6px;background:rgba(212,175,55,0.12);color:#D4AF37;border:1px solid rgba(212,175,55,0.35);padding:8px 16px;border-radius:20px;font-size:0.78rem;font-weight:800;letter-spacing:0.04em;cursor:pointer;">
+                    <i class="fas fa-arrow-left"></i> PREV STORY
+                </button>
+                <span id="modalStoryCounter" style="font-size:0.75rem;color:#94A3B8;font-weight:700;letter-spacing:0.1em;">STORY 1 / 2</span>
+                <button id="modalNextStoryBtn" style="display:inline-flex;align-items:center;gap:6px;background:rgba(212,175,55,0.12);color:#D4AF37;border:1px solid rgba(212,175,55,0.35);padding:8px 16px;border-radius:20px;font-size:0.78rem;font-weight:800;letter-spacing:0.04em;cursor:pointer;">
+                    NEXT STORY <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Request Free Estimate / Consultation Modal -->
+    <div class="modal-backdrop" id="quoteModal">
+        <div class="quote-modal-content">
+            <button class="modal-close-icon" id="closeQuoteModal"><i class="fas fa-xmark"></i></button>
+            <div class="modal-header-tag">FREE SITE CONSULTATION & ESTIMATE</div>
+            <h2 class="modal-title-text">REQUEST FREE ESTIMATE</h2>
+            <form id="quoteModalForm" class="quote-form-grid">
+                <div class="form-field full-width">
+                    <label>FULL NAME *</label>
+                    <input type="text" name="name" required placeholder="Enter your full name">
+                </div>
+                <div class="form-field">
+                    <label>EMAIL ADDRESS *</label>
+                    <input type="email" name="email" required placeholder="name@gmail.com">
+                </div>
+                <div class="form-field">
+                    <label>TELEPHONE *</label>
+                    <input type="tel" name="phone" required placeholder="+91 9876543210">
+                </div>
+                <div class="form-field">
+                    <label>PROJECT TYPE</label>
+                    <select name="project_type">
+                        <option>Residential Villa</option>
+                        <option>Commercial Building</option>
+                        <option>Interior Design</option>
+                        <option>Structural Engineering</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label>BUDGET RANGE</label>
+                    <select name="budget_range">
+                        <option>₹30 Lakhs - ₹50 Lakhs</option>
+                        <option>₹50 Lakhs - ₹1 Crore</option>
+                        <option>₹1 Crore - ₹3 Crore</option>
+                        <option>₹3 Crore+</option>
+                    </select>
+                </div>
+                <div class="form-field full-width">
+                    <label>SITE NOTES & VISIONS</label>
+                    <textarea name="message" rows="3" placeholder="Tell us about your plot size, location, or requirements..."></textarea>
+                </div>
+                <div class="form-field full-width">
+                    <button type="submit" class="btn-gold-submit" id="quoteSubmitBtn">
+                        <i class="fas fa-paper-plane" style="margin-right:6px;"></i> SUBMIT PROPOSAL REQUEST
+                    </button>
+                </div>
+                <div id="quoteSuccessMessage" class="form-success-box" style="display:none;">
+                    <i class="fas fa-circle-check" style="margin-right:6px;color:#25D366;"></i> Proposal Request Logged! Er. Maha Rajan will contact you directly within 24 hours.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dedicated Construction Package Details Modal (Inclusions & Exclusions) -->
+    <div class="modal-backdrop" id="packageDetailsModal">
+        <div class="package-details-modal-content">
+            <div class="pkg-modal-top-beam"></div>
+            <button class="modal-close-icon" id="closePackageDetailsModal"><i class="fas fa-xmark"></i></button>
+
+            <!-- Meta Header Row -->
+            <div class="pkg-modal-meta-row">
+                <div style="flex:1;min-width:260px;">
+                    <span class="plan-tier-label" id="modalPkgTierLabel" style="font-size:0.75rem;">RESIDENTIAL • BASIC TIER</span>
+                    <h2 class="pkg-modal-title" id="modalPkgTitle">BASIC PLAN</h2>
+                    <div style="font-size:0.85rem;color:var(--text-muted);" id="modalPkgSubtitle">Solid & Affordable Turnkey Solution</div>
+                </div>
+                <div class="pkg-modal-price-box">
+                    <div class="pkg-modal-price-val" id="modalPkgPrice">₹1,999 <span>/ sq.ft</span></div>
+                    <div style="font-size:0.7rem;color:#D4AF37;font-weight:700;letter-spacing:0.05em;margin-top:2px;">TURNKEY RATE</div>
+                </div>
+            </div>
+
+            <!-- Badges Row -->
+            <div class="pkg-modal-badges-row">
+                <span class="pkg-badge-chip" id="modalPkgWarranty"><i class="fas fa-shield-halved" style="color:var(--gold);"></i> 10 Yrs Structural Warranty</span>
+                <span class="pkg-badge-chip" id="modalPkgDelivery"><i class="fas fa-calendar-check" style="color:var(--gold);"></i> 12 Months Delivery</span>
+                <span class="pkg-badge-chip"><i class="fas fa-gem" style="color:var(--gold);"></i> 100% Material Brand Transparency</span>
+                <span class="pkg-badge-chip"><i class="fas fa-file-contract" style="color:var(--gold);"></i> Zero Hidden Costs</span>
+            </div>
+
+            <!-- Description Box -->
+            <div class="pkg-modal-desc-box" id="modalPkgDescription">
+                A solid, cost-effective residential build using quality materials, standard-grade finishes, and proven structural systems — ideal for budget-conscious homeowners.
+            </div>
+
+            <!-- Inclusions & Exclusions 2-Column Grid -->
+            <div class="pkg-inc-exc-grid">
+                <!-- INCLUSIONS (What is included) -->
+                <div class="pkg-inc-box">
+                    <div class="pkg-inc-box-header">
+                        <i class="fas fa-circle-check" style="font-size:1.1rem;"></i>
+                        <span>INCLUSIONS (WHAT'S INCLUDED)</span>
+                    </div>
+                    <ul class="pkg-item-list" id="modalPkgInclusions">
+                        <!-- Populated dynamically -->
+                    </ul>
+                </div>
+
+                <!-- EXCLUSIONS (What is excluded / custom add-ons) -->
+                <div class="pkg-exc-box">
+                    <div class="pkg-exc-box-header">
+                        <i class="fas fa-circle-xmark" style="font-size:1.1rem;"></i>
+                        <span>EXCLUSIONS (CUSTOM ADD-ONS)</span>
+                    </div>
+                    <div style="font-size:0.72rem;color:#94A3B8;margin:-8px 0 12px;line-height:1.4;">
+                        Available upon request as custom structural additions or site-specific options.
+                    </div>
+                    <ul class="pkg-item-list" id="modalPkgExclusions">
+                        <!-- Populated dynamically -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Key Materials & Specs Checklist -->
+            <div class="pkg-specs-card">
+                <div class="pkg-specs-header">
+                    <i class="fas fa-layer-group" style="font-size:0.95rem;"></i>
+                    <span>KEY SPECIFICATIONS & MATERIAL HIGHLIGHTS</span>
+                </div>
+                <ul class="pkg-specs-grid" id="modalPkgFeatures" style="list-style:none;padding:0;margin:0;">
+                    <!-- Populated dynamically -->
+                </ul>
+            </div>
+
+            <!-- Modal Action Buttons -->
+            <div class="pkg-modal-actions">
+                <button type="button" class="btn-gold-pill" id="btnPkgRequestQuote">
+                    <i class="fas fa-paper-plane" style="margin-right:6px;"></i> REQUEST ESTIMATE FOR THIS PACKAGE
+                </button>
+                <button type="button" class="btn-whatsapp-outline" style="border-color:var(--border-gold);color:var(--text-cream);" id="btnPkgConsult">
+                    <i class="fas fa-calendar-check" style="margin-right:6px;"></i> FREE SITE VISIT
+                </button>
+                <a href="#" target="_blank" class="btn-whatsapp-outline" style="border-color:#25D366;color:#25D366;" id="btnPkgWhatsApp">
+                    <i class="fab fa-whatsapp" style="margin-right:6px;"></i> WHATSAPP INQUIRY
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Construction Packages Comparison Matrix Modal -->
+    <div class="modal-backdrop" id="packageMatrixModal">
+        <div class="matrix-modal-content" style="max-width:960px;width:95%;">
+            <button class="modal-close-icon" id="closeMatrixModal"><i class="fas fa-xmark"></i></button>
+            <div class="matrix-modal-header" style="text-align:center;">
+                <span class="sec-tag">OFFICIAL BENCHMARKS</span>
+                <h3 style="margin-top:4px;">CONSTRUCTION PACKAGES COMPARISON MATRIX</h3>
+                <p style="font-size:0.85rem;color:var(--text-muted);margin:6px auto 0;">Detailed specification and material comparison across our construction plans.</p>
+                <div class="tab-toggle-group" style="margin:14px auto 0;max-width:300px;">
+                    <button type="button" class="tab-btn modal-mat-toggle active" data-target-matrix="modalMatResWrap">RESIDENTIAL</button>
+                    <button type="button" class="tab-btn modal-mat-toggle" data-target-matrix="modalMatComWrap">COMMERCIAL</button>
+                </div>
+            </div>
+
+            <!-- Residential Table Wrap -->
+            <div class="table-responsive" id="modalMatResWrap" style="margin-top:16px;">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>SPECIFICATION</th>
+                            @foreach($package_spec_matrix_res['headers'] as $header)
+                                <th>{{ strtoupper($header) }}</th>
+                            @endforeach
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($package_spec_matrix_res['rows'] as $row)
+                            <tr>
+                                <td class="feature-title">{{ $row['feature'] }}</td>
+                                @foreach($row['values'] as $val)
+                                    <td>{{ $val }}</td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Commercial Table Wrap -->
+            <div class="table-responsive" id="modalMatComWrap" style="margin-top:16px;display:none;">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>SPECIFICATION</th>
+                            @foreach($package_spec_matrix_com['headers'] as $header)
+                                <th>{{ strtoupper($header) }}</th>
+                            @endforeach
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($package_spec_matrix_com['rows'] as $row)
+                            <tr>
+                                <td class="feature-title">{{ $row['feature'] }}</td>
+                                @foreach($row['values'] as $val)
+                                    <td>{{ $val }}</td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="matrix-modal-footer" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:20px;">
+                <button type="button" class="btn-gold-pill" data-open-quote style="padding:10px 20px;">
+                    <i class="fas fa-paper-plane" style="margin-right:6px;"></i> REQUEST CUSTOM ESTIMATE
+                </button>
+                <button type="button" class="btn-close-matrix" id="btnCloseMatrix">CLOSE COMPARISON</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.companyWhatsappRaw = '{{ $raw_whatsapp }}';
+        window.companyPhoneRaw = '{{ $raw_phone }}';
+    </script>
+    <script src="{{ asset('js/app.js') }}?v={{ file_exists(public_path('js/app.js')) ? filemtime(public_path('js/app.js')) : time() }}" defer></script>
+    @stack('scripts')
+</body>
+</html>
